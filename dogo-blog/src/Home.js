@@ -5,7 +5,18 @@ const Home = () => {
   // use state allows us to make a variable reactive
   const [name, setName] = useState("mario"); // this variable is  reactive
   const [age, setAge] = useState(33);
+  const [blogs, setBlogs] = useState([
+    { title: "My new website", body: "lorem ipsum...", author: "mario", id: 1 },
 
+    { title: "Welcome party!", body: "lorem ipsum...", author: "yoshi", id: 2 },
+
+    {
+      title: "Web dev top tips",
+      body: "lorem ipsum...",
+      author: "mario",
+      id: 3,
+    },
+  ]);
   const handleClick = (e) => {
     //when we do this we automatically get accss to an event object
     // handles the click on the buttongv
@@ -35,6 +46,14 @@ const Home = () => {
       >
         Click me
       </button>
+      {/* cycle through our lists and make template bit for our blog */}
+      {blogs.map((blog) => (
+        //every blog item needs a key or id so that react can track it
+        <div className="blog-preview" key={blog.id}>
+          <h2> {blog.title}</h2>
+          <p>Written by {blog.author}</p>
+        </div>
+      ))}
     </div>
   );
 };
