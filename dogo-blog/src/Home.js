@@ -1,5 +1,6 @@
 import react from "react";
 import { useState } from "react";
+import BlogList from "./BlogList";
 const Home = () => {
   //hooks start with the word state
   // use state allows us to make a variable reactive
@@ -28,6 +29,10 @@ const Home = () => {
     //however we can pass it into this function as a parameter
     console.log("hello" + name);
   };
+  const handleDelete = (id) => {
+    const newBlogs = blogs.filter((blog) => blog.id != id);
+    setBlogs(newBlogs);
+  };
   return (
     <div className="home">
       <h2>HomePage</h2>
@@ -47,13 +52,12 @@ const Home = () => {
         Click me
       </button>
       {/* cycle through our lists and make template bit for our blog */}
-      {blogs.map((blog) => (
-        //every blog item needs a key or id so that react can track it
-        <div className="blog-preview" key={blog.id}>
-          <h2> {blog.title}</h2>
-          <p>Written by {blog.author}</p>
-        </div>
-      ))}
+      <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
+      <BlogList
+        blogs={blogs.filter((blog) => blog.author === "mario")}
+        title="Marios Blogs"
+        handleDelete={handleDelete}
+      />
     </div>
   );
 };
